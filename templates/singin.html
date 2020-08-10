@@ -24,6 +24,7 @@
         <form method="POST"> {% csrf_token %}
             <div class="col-md-6 mx-auto" style="margin-top: 10px;">
               {{registro.username.label}} {{registro.username}}
+              <small>No use espacios en medio de las palabras</small>
             </div>
             <div class="col-md-6 mx-auto" style="margin-top: 10px;">
               {{registro.first_name.label}} {{registro.first_name}}
@@ -33,6 +34,7 @@
             </div>
             <div class="col-md-6 mx-auto" style="margin-top: 10px;">
               {{registro.password1.label}} {{registro.password1}}
+              <small>La contraseña debe tener: mayusculas, minusculas y números</small>
             </div>
             <div class="col-md-6 mx-auto" style="margin-top: 10px;">
               {{registro.password2.label}} {{registro.password2}}

@@ -125,7 +125,7 @@
                   alt="resized image"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">{{item.nameProd}}</h5>
+                  <h5 class="card-title" style="text-align: center;">{{item.nameProd}}</h5>
                   <p class="card-text" style="text-align: center;">
                     {{item.descripcion}}
                   </p>
@@ -138,9 +138,9 @@
                   <p>
                     <b>Stock: {{item.cantidad}}</b>
                   </p>
-                  <button type="button"  name="add">
+                  <button type="button" class="btn btn-primary" name="add" >
                     {% if item.cantidad != 0 %}
-                       <a href="{% url 'store:pg_Carrito_Add' item.pk %}">Añadir a carrito</a>
+                       <a href="{% url 'store:pg_Carrito_Add' item.pk %}" style="color: white;">Añadir a carrito</a>
                     {% else %}
                       <p>
                         <b>Sin stock</b>
