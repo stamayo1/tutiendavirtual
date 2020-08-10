@@ -25,7 +25,7 @@ SECRET_KEY = 'gbzo=ncl&d==j4=2=%@^%=_fay16#0zcxm_u9s&81qgwphogox'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tutiendavirual.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
