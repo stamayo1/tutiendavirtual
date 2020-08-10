@@ -41,4 +41,4 @@ def SingIn(request):
             messages.error(request, 'Usuario no se registro exitosamente')
             
     singIn = ClienteForm
-    return render(request, 'singIn.html', {'registro': singIn})
+    return render(request, 'singin.html', {'registro': singIn})
