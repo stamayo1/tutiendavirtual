@@ -1,0 +1,51 @@
+{% extends "index.html" %} 
+{% load static %}
+
+{% block imgPortada %}
+  {% static "img/login.jpg" %}
+{% endblock imgPortada %}
+
+{% block tituloPrincipal %} Login {% endblock tituloPrincipal %} 
+
+{% block buscador %}{% endblock buscador %} 
+
+{% block contenido %}
+
+{% for message in messages  %}
+      <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+          <h2>{{message}}</h2>    
+      </div>
+{% endfor %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <form method="POST"> {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="exampleInputPassword1"
+            placeholder="Password"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar</button>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
+{% endblock contenido %}

@@ -1,0 +1,59 @@
+{% extends "index.html" %} 
+{% load static %}
+
+{% block imgPortada %}
+  {% static "img/registro.jpg" %}
+{% endblock imgPortada %}
+
+{% block tituloPrincipal %} Carrito {% endblock tituloPrincipal %} 
+
+{% block buscador %}{% endblock buscador %} 
+
+{% block contenido %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+        <div>
+            {% for message in messages %}
+                <h1><b>{{message}}</b></h1>
+            {% endfor %}
+        </div>
+        <form method="POST"> {% csrf_token %}
+
+           {% if prdts %}
+                <h1><strong>TOTAL: $ {{total | floatformat:3}} </strong></h1>
+                <table class="table">                  
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for prdt  in prdts %}
+                        <tr>
+                            <th scope="row">{{prdt.producto_id.pk}}</th>
+                            <td>{{prdt.producto_id.nameProd}}</td>
+                            <td>{{prdt.cantidad}}</td>
+                            <td>${{prdt.precio|floatformat:3}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary"> 
+                                    <a href="{% url 'store:pg_Carrito_Add' prdt.producto_id.pk %}" style="color: blanchedalmond;">Adicionar +1</a> </button>
+                                <button type="button" class="btn btn-danger">
+                                    <a href="{% url 'store:pg_Carrito_Del' prdt.producto_id.pk %}" style="color: blanchedalmond;">Eliminar -1</a> </button>
+                            </td>
+                        </tr>
+                {% endfor %}
+                    </tbody> 
+                    </table>
+                    <button type="button" class="btn btn-success"><a href="{% url 'store:pg_Carrito_Check' %}" style="color: blanchedalmond;"> Finalizar compra</a></button>      
+            {% endif %}
+        </form>
+    </div>
+  </div>
+</div>
+<hr>
+{% endblock contenido %}

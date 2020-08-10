@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TiendaVirtual</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link href="{% static 'css/tienda.css' %} " rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'pg_Home' %}"> <b>TIENDA VIRTUAL</b></a>
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'store:pg_Carrito_View' %}"> <b>Carrito</b></a>
+            </li>
+
+              {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'pg_Logout' %}"> <b>Logout</b></a>
+                </li>
+              {% else %}
+              
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'pg_Login' %}"> <b>Login</b></a>
+                </li>
+                  
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'pg_SignIn' %}"> <b>Sign In</b></a>
+                </li> 
+              {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead" style="background-image: url({% block imgPortada %} {% static 'img/home-2.jpg' %} {% endblock imgPortada %})">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              
+              <h1>
+                {% block tituloPrincipal %} 
+                  
+                Bienvenido a Tienda Virtual   
+                  {% if request.user.is_authenticated %}
+                      , {{request.user.first_name}}
+                  {% endif %}
+                {% endblock tituloPrincipal %}
+              </h1>
+
+              {% block buscador%}
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 search">
+                      <form method="GET">
+                        <div id="custom-search-input">
+                          <div class="input-group cold-md-12">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Buscar producto por titulo..."
+                              name="buscar"
+                              value="{{request.GET.buscar}}"
+                            />
+                            <sapm class="input-group-list">
+                              <i class="icon icon-search"></i>
+                              <button type="submit" class="button btn-success">
+                                Buscar
+                              </button>
+                            </sapm>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              {% endblock buscador%}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {% block contenido %}
+
+    <div class="container">
+      <div class="col-lg-8 col-md-12 col-sm-12 mx-auto">
+        <div class="row">
+          {% if prdts %} 
+
+          {% for item in prdts %}
+            <div class="col-md-6 mx-auto" style="margin-top: 40px;">
+              <div
+                class="card"
+                style="width: 20rem; box-shadow: 30px 10px 100px gray;"
+              >
+                <img
+                  class="card-img-top"
+                  src="{{item.imagen}}"
+                  alt="resized image"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{item.nameProd}}</h5>
+                  <p class="card-text" style="text-align: center;">
+                    {{item.descripcion}}
+                  </p>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    <b>$ {{item.precio_vnt | floatformat:3 }}</b>
+                    
+                  </p>
+                  <p>
+                    <b>Stock: {{item.cantidad}}</b>
+                  </p>
+                  <button type="button"  name="add">
+                    {% if item.cantidad != 0 %}
+                       <a href="{% url 'store:pg_Carrito_Add' item.pk %}">Añadir a carrito</a>
+                    {% else %}
+                      <p>
+                        <b>Sin stock</b>
+                      </p>
+                    {% endif %}
+                    
+                  </button>
+                </div>
+              </div>
+            </div>
+          {% endfor %} 
+
+          {% else %}
+            <div
+              class="col-12 col-md-12 mx-auto"
+              style="margin-top: 10px; text-align: center;"
+            >
+              <h1>No hay productos!</h1>
+            </div>
+            <hr />
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% endblock contenido %}
+    <hr>
+
+    <footer>
+    <div class="container" style="text-align: center;">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <p class="copyright text-muted">Copyright &copy; Your Website 2020 Sebastian Tamayo</p>
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <a href="https://github.com/sebastian18t">
+                GITHUB
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+    <!-- JS, Popper.js, and jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

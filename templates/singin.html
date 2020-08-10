@@ -1,0 +1,51 @@
+{% extends "index.html" %} 
+{% load static %}
+
+{% block imgPortada %}
+  {% static "img/registro.jpg" %}
+{% endblock imgPortada %}
+
+{% block tituloPrincipal %} Registro {% endblock tituloPrincipal %} 
+
+{% block buscador %} {% endblock buscador %} 
+
+{% block contenido %}
+
+<hr />
+{% for message in messages  %}
+      <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+          <h2>{{message}}</h2>    
+      </div>
+{% endfor %}
+<div class="container">
+  <div class="col-lg-10 col-md-6 mx-auto">
+    <div class="col-lg-6 mx-auto" style="margin-top: 40px;">
+      
+        <form method="POST"> {% csrf_token %}
+            <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+              {{registro.username.label}} {{registro.username}}
+            </div>
+            <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+              {{registro.first_name.label}} {{registro.first_name}}
+            </div>
+            <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+              {{registro.email.label}} {{registro.email}}
+            </div>
+            <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+              {{registro.password1.label}} {{registro.password1}}
+            </div>
+            <div class="col-md-6 mx-auto" style="margin-top: 10px;">
+              {{registro.password2.label}} {{registro.password2}}
+            </div>
+
+            <div
+              class="col-md-6 mx-auto"
+              style="margin-top: 10px; margin-bottom: 10px;"
+            >
+              <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}
