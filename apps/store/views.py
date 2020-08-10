@@ -30,7 +30,6 @@ def CheckCompra(request): #Finalizacion compra
     try:
         orden = Compra.objects.get(cliente_id=request.user, estado=False)
         orden.estado = True
-        orden.dir = request.POST.get['dir']
         orden.save()
         messages.error(request, 'Compra finalizada con exito')
             
