@@ -12,20 +12,15 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import django_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'gbzo=ncl&d==j4=2=%@^%=_fay16#0zcxm_u9s&81qgwphogox'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['tutiendavirual.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +33,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    #NATIVO
+    'import_export', 
+    
+    #APP
     'apps.store',
     'apps.users',
 ]
@@ -72,27 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tiendaVirtual.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-""" DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-} """
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd61rgtuu97u3u2',
-        'USER': 'yskvwdsixpydkm',
-        'PASSWORD': 'cef0457216c1ae34377103902d824b94d22ada7f1e6cdcd5c6e41a63554545ad',
-        'HOST': 'ec2-54-243-67-199.compute-1.amazonaws.com',
-        'PORT': 5432,
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -11,13 +11,15 @@
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-    <link href="{% static 'css/tienda.css' %} " rel="stylesheet">
+    <link href="{% static 'css/tienda.css' %} " rel="stylesheet" />
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'pg_Home' %}"> <b>TIENDA VIRTUAL</b></a>
+        <a class="navbar-brand" href="{% url 'pg_Home' %}">
+          <b>TIENDA VIRTUAL</b></a
+        >
         <button
           class="navbar-toggler navbar-toggler-right"
           type="button"
@@ -33,73 +35,79 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'store:pg_Carrito_View' %}"> <b>Carrito</b></a>
+              <a class="nav-link" href="{% url 'store:pg_Carrito_View' %}">
+                <b>Carrito</b></a
+              >
             </li>
 
-              {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'pg_Logout' %}"> <b>Logout</b></a>
-                </li>
-              {% else %}
-              
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'pg_Login' %}"> <b>Login</b></a>
-                </li>
-                  
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'pg_SignIn' %}"> <b>Sign In</b></a>
-                </li> 
-              {% endif %}
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pg_Logout' %}">
+                <b>Logout</b></a
+              >
+            </li>
+            {% else %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pg_Login' %}"> <b>Login</b></a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pg_SignIn' %}">
+                <b>Sign In</b></a
+              >
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
     </nav>
 
-    <header class="masthead" style="background-image: url({% block imgPortada %} {% static 'img/home-2.jpg' %} {% endblock imgPortada %})">
+    <header
+      class="masthead"
+      style="background-image: url({%block imgPortada%}{%static 'img/home.png' %}{%endblock imgPortada%});"
+    >
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
-              
               <h1>
                 {% block tituloPrincipal %} 
-                  
-                Bienvenido a Tienda Virtual   
-                  {% if request.user.is_authenticated %}
-                      , {{request.user.first_name}}
-                  {% endif %}
+                  {% if request.user.is_authenticated%} 
+                    {{request.user.first_name}}, 
+                  {% endif %} 
+                    Bienvenido a Tienda Virtual 
                 {% endblock tituloPrincipal %}
               </h1>
 
               {% block buscador%}
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12 search">
-                      <form method="GET">
-                        <div id="custom-search-input">
-                          <div class="input-group cold-md-12">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Buscar producto por titulo..."
-                              name="buscar"
-                              value="{{request.GET.buscar}}"
-                            />
-                            <sapm class="input-group-list">
-                              <i class="icon icon-search"></i>
-                              <button type="submit" class="button btn-success">
-                                Buscar
-                              </button>
-                            </sapm>
-                          </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 search">
+                    <form method="GET">
+                      <div id="custom-search-input">
+                        <div class="input-group cold-md-12">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Buscar producto por titulo..."
+                            name="buscar"
+                            value="{{request.GET.buscar}}"
+                          />
+                          <sapm class="input-group-list">
+                            <i class="icon icon-search"></i>
+                            <button type="submit" class="btn btn-success">
+                              Buscar
+                            </button>
+                          </sapm>
                         </div>
-                      </form>
-                    </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
+              </div>
               {% endblock buscador%}
-
             </div>
           </div>
         </div>
@@ -111,48 +119,49 @@
     <div class="container">
       <div class="col-lg-8 col-md-12 col-sm-12 mx-auto">
         <div class="row">
-          {% if prdts %} 
-
-          {% for item in prdts %}
-            <div class="col-md-6 mx-auto" style="margin-top: 40px;">
-              <div
-                class="card"
-                style="width: 20rem; box-shadow: 30px 10px 100px gray;"
-              >
-                <img
-                  class="card-img-top"
-                  src="{{item.imagen}}"
-                  alt="resized image"
-                />
-                <div class="card-body">
-                  <h5 class="card-title" style="text-align: center;">{{item.nameProd}}</h5>
-                  <p class="card-text" style="text-align: center;">
-                    {{item.descripcion}}
-                  </p>
-                </div>
-                <div class="card-body">
-                  <p class="card-text">
-                    <b>$ {{item.precio_vnt | floatformat:3 }}</b>
-                    
-                  </p>
+          {% if prdts %} {% for item in prdts %}
+          <div class="col-md-6 mx-auto" style="margin-top: 40px;">
+            <div
+              class="card"
+              style="width: 20rem; box-shadow: 30px 10px 100px gray;"
+            >
+              <img
+                class="card-img-top"
+                src="{{item.imagen}}"
+                alt="resized image"
+              />
+              <div class="card-body">
+                <h5 class="card-title" style="text-align: center;">
+                  {{item.nameProd}}
+                </h5>
+                <p class="card-text" style="text-align: center;">
+                  {{item.descripcion}}
+                </p>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  <b>$ {{item.precio_vnt | floatformat:3 }}</b>
+                </p>
+                <p>
+                  <b>Stock: {{item.cantidad}}</b>
+                </p>
+                <button type="button" class="btn btn-primary" name="add">
+                  {% if item.cantidad != 0 %}
+                  <a
+                    href="{% url 'store:pg_Carrito_Add' item.pk %}"
+                    style="color: white;"
+                    >Añadir a carrito</a
+                  >
+                  {% else %}
                   <p>
-                    <b>Stock: {{item.cantidad}}</b>
+                    <b>Sin stock</b>
                   </p>
-                  <button type="button" class="btn btn-primary" name="add" >
-                    {% if item.cantidad != 0 %}
-                       <a href="{% url 'store:pg_Carrito_Add' item.pk %}" style="color: white;">Añadir a carrito</a>
-                    {% else %}
-                      <p>
-                        <b>Sin stock</b>
-                      </p>
-                    {% endif %}
-                    
-                  </button>
-                </div>
+                  {% endif %}
+                </button>
               </div>
             </div>
+          </div>
           {% endfor %} 
-
           {% else %}
             <div
               class="col-12 col-md-12 mx-auto"
@@ -167,24 +176,26 @@
     </div>
 
     {% endblock contenido %}
-    <hr>
+    <hr />
 
     <footer>
-    <div class="container" style="text-align: center;">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <p class="copyright text-muted">Copyright &copy; Your Website 2020 Sebastian Tamayo</p>
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="https://github.com/sebastian18t">
-                GITHUB
-              </a>
-            </li>
-          </ul>
+      <div class="container" style="text-align: center;">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p class="copyright text-muted">
+              Copyright &copy; Your Website 2020 Sebastian Tamayo
+            </p>
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://github.com/sebastian18t">
+                  GITHUB
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
     <!-- JS, Popper.js, and jQuery -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def Home(request):
     queryset = request.GET.get('buscar')
-    post = Producto.objects.filter(disponible = True)
+    post = Producto.objects.filter(disponible = True).order_by('nameProd')
     if queryset: 
         post = Producto.objects.filter(nameProd__icontains = queryset, disponible=True)
         
@@ -94,7 +94,7 @@ def EliminarCarrito(request, id):  #Eliminar Elmento del carrito
                 
             prdt.cantidad += 1  # aumento EL STOCK DEL PRODUCTO
             prdt.save()
-            messages.success(request, 'Eliminacion  articulo del carrito')
+            messages.success(request, 'Eliminado del carrito')
             
     return redirect('store:pg_Carrito_View')  
     
