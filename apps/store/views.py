@@ -26,6 +26,7 @@ def CompraView(request):  #Vista elementos en carrito
             
     return render(request, 'carrito.html', {'prdts': prdts, 'total': valCompra})
         
+        
 def CheckCompra(request): #Finalizacion compra
     try:
         orden = Compra.objects.get(cliente_id=request.user, estado=False)
@@ -75,6 +76,7 @@ def AddCard(request, id): #Añadir articulos al carrito
         messages.error(request, 'No hay mas stock')        
         
     return redirect('store:pg_Carrito_View')       
+
 
 def EliminarCarrito(request, id):  #Eliminar Elmento del carrito
     
